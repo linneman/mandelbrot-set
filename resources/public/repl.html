@@ -31,29 +31,20 @@
 
       <div id="header-space"></div>
       <div id="content_pane">
-        <div id="box1">
-          box1
-        </div>
-        <div id="box2">
-          box2
-        </div>
-        <div id="box3">
-          box3
+        <div id="viewport">
+          <canvas id="render" width="500" height="500"></canvas>
+          <canvas id="control" width="500" height="500"></canvas>
         </div>
       </div>
+
     </div>
 
     <div id="repl-pane">
       <div id="repl">
         <h3>REPL</h3>
-        <p>Geben Sie das untenstehende Kommando in einer Shell ein und laden Sie diese Seite erneut:</p>
+        <p>Enter the following command in your development shell and reload the page:</p>
         <code>lein trampoline cljsbuild repl-listen</code>
       </div>
-    </div>
-
-    <div id="viewport">
-      <canvas id="render" width="500" height="500"></canvas>
-      <canvas id="control" width="500" height="500"></canvas>
     </div>
 
     <div id="global-scripts">

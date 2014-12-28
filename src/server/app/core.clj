@@ -15,12 +15,10 @@
             [compojure.handler :as handler]
             [net.cgrand.enlive-html :as html]
             [clojure.tools.nrepl.server :as nrepl-server]
-            [cider.nrepl :refer (cider-nrepl-handler)]
-                                        ;[swank.swank]
-            )
+            [cider.nrepl :refer (cider-nrepl-handler)])
   (:use [clojure.string :only [split]]
         [compojure.core :only [GET POST PUT DELETE]]
-        [ring.util.response :only [response content-type charset]]
+        [ring.util.response :only [response content-type charset redirect]]
         [ring.util.codec :only [url-decode url-encode]]
         [ring.middleware.session :only [wrap-session]]
         [ring.middleware.cookies :only [wrap-cookies]]
@@ -29,6 +27,7 @@
         [ring.middleware.file-info]
         [clojure.pprint :only [pprint]]
         [clojure.data.json :only [json-str write-json read-json]]
+        [server.lib.utils]
         [macros.macros]))
 
 
@@ -36,8 +35,8 @@
 ;; --- application routes ---
 
 (compojure/defroutes main-routes
-  ;; --- authentification and registration ---
   ;(GET "/index.html" args (str "<body>" args "</body>"))
+  (GET "/" args (redirect "index.html"))
   (route/resources "/")
   (route/not-found "Page not found"))
 

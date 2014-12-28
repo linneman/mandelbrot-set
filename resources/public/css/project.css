@@ -55,22 +55,16 @@ h6 {
 
 
 body h1 {
-  font-size:54px;
-}
-
-body h2 {
   font-size:36px;
 }
 
-#header {
-    position:fixed;
-    top:50px;
-    height:40;
-    padding-bottom:10px;
-    }
+body h2 {
+  font-size:24px;
+}
 
-#header-space {
-    height:50px;
+#header {
+    top:20px;
+    padding-bottom:10px;
     }
 
 
@@ -333,39 +327,15 @@ input.button.green:active, a.button.green:active {
   position:relative;
 }
 
-
-
-#box1 {
-    background: rgb(100,0,0); /* Old browsers */
-    left:100px;
-    width:200px;
-    position:absolute;
-    font-family: 'PT Serif', serif;
-}
-
-#box2 {
-    background: rgb(0,100,0); /* Old browsers */
-    left:400px;
-    width:200px;
-    position:absolute;
-    font-family: 'PT Serif', serif;
-}
-
-#box3 {
-    background: rgb(0,0,100); /* Old browsers */
-    left:700px;
-    width:200px;
-    position:absolute;
-    font-family: 'PT Serif', serif;
-}
-
-
 #viewport {
     position:relative;
+    width:500px;
+    height:500px;
 }
 
 #viewport canvas {
     position:absolute;
+    border:1px solid #0000AA;
 }
 
 #viewport #render {

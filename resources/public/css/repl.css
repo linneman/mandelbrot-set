@@ -11,10 +11,11 @@
 }
 
 #repl {
-  position: absolute;
+  position: relative;
   left: 50%;
   top: 30%;
   text-align:center;
   width: 100%;
+  margin-top:30px;
   margin-left: -50%;
 }

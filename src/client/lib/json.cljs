@@ -5,7 +5,7 @@
 
 (ns client.lib.json)
 
-(defn clj->js
+(defn my-clj->js
   "Recursively transforms ClojureScript maps into Javascript objects,
    other ClojureScript colls into JavaScript arrays, and ClojureScript
    keywords into JavaScript strings. Note that this function’s approximate

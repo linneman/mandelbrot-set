@@ -17,9 +17,9 @@
 resources/public/cljs
 resources/public/clojure
 resources/public/goog
-resources/public/project_beta_client
-resources/public/project_beta.js
-resources/public/project_beta_debug.js
+resources/public/client
+resources/public/release.js
+resources/public/debug.js
 target
 repl
 .lein-repl-history

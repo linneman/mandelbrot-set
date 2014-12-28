@@ -332,3 +332,46 @@ input.button.green:active, a.button.green:active {
   /* opacity:0; */
   position:relative;
 }
+
+
+
+#box1 {
+    background: rgb(100,0,0); /* Old browsers */
+    left:100px;
+    width:200px;
+    position:absolute;
+    font-family: 'PT Serif', serif;
+}
+
+#box2 {
+    background: rgb(0,100,0); /* Old browsers */
+    left:400px;
+    width:200px;
+    position:absolute;
+    font-family: 'PT Serif', serif;
+}
+
+#box3 {
+    background: rgb(0,0,100); /* Old browsers */
+    left:700px;
+    width:200px;
+    position:absolute;
+    font-family: 'PT Serif', serif;
+}
+
+
+#viewport {
+    position:relative;
+}
+
+#viewport canvas {
+    position:absolute;
+}
+
+#viewport #render {
+  z-index: 1;
+}
+
+#viewport #control {
+  z-index: 2;
+}

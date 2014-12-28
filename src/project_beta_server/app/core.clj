@@ -37,12 +37,9 @@
 
 (compojure/defroutes main-routes
   ;; --- authentification and registration ---
-  (GET "/index.html" args (str "<body>" args "</body>"))
+  ;(GET "/index.html" args (str "<body>" args "</body>"))
   (route/resources "/")
   (route/not-found "Page not found"))
-
-
-
 
 (def app
   (-> main-routes

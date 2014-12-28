@@ -31,37 +31,18 @@
 
       <div id="header-space"></div>
       <div id="content_pane">
-        <div id="box1">
-          box1
-        </div>
-        <div id="box2">
-          box2
-        </div>
-        <div id="box3">
-          box3
+        <div id="viewport">
+          <canvas id="render" width="500" height="500"></canvas>
+          <canvas id="control" width="500" height="500"></canvas>
         </div>
       </div>
-    </div>
-
-    <div id="repl-pane">
-      <div id="repl">
-        <h3>REPL</h3>
-        <p>Geben Sie das untenstehende Kommando in einer Shell ein und laden Sie diese Seite erneut:</p>
-        <code>lein trampoline cljsbuild repl-listen</code>
-      </div>
-    </div>
-
-    <div id="viewport">
-      <canvas id="render" width="500" height="500"></canvas>
-      <canvas id="control" width="500" height="500"></canvas>
     </div>
 
     <div id="global-scripts">
       <script type="text/javascript">
         var CLOSURE_NO_DEPS = true;
       </script>
-      <script src="project_beta_debug.js" type="text/javascript"></script>
-      <script type="text/javascript">project_beta_client.lib.repl.connect()</script>
+      <script src="project_beta.js" type="text/javascript"></script>
     </div>
 
   </body>

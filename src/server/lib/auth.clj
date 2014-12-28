@@ -6,7 +6,7 @@
 ;;; December 2011, Otto Linnemann
 
 
-(ns project-alpha-server.lib.auth
+(ns mandelbrot-set.lib.auth
   (:require [ring.adapter.jetty :as jetty]
             [compojure.core :as compojure]
             [compojure.route :as route]
@@ -14,15 +14,15 @@
             [ring.middleware.json-params :as json-params]
             [ring.util.codec :as codec]
             [clojure.string :as str]
-            [project-alpha-server.local-settings :as setup])
+            [server.local-settings :as setup])
   (:use [compojure.core :only [GET POST PUT DELETE]]
         [ring.util.response :only [response status set-cookie]]
         [clojure.string :only [split]]
-        [project-alpha-server.lib.model]
-        [project-alpha-server.lib.crypto :only [get-secret-key]]
-        [project-alpha-server.lib.email :only [send-confirm-mail
-                                               send-reset-passwd-mail]]
-        [project-alpha-server.lib.utils]
+        [server.lib.model]
+        [server.lib.crypto :only [get-secret-key]]
+        [server.lib.email :only [send-confirm-mail
+                                 send-reset-passwd-mail]]
+        [server.lib.utils]
         [swank.core :only [break]]))
 
 

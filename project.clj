@@ -1,5 +1,5 @@
-(defproject project-beta "1.0.0-SNAPSHOT"
-  :description "clojure based web application"
+(defproject mandelbrot-set "1.0.0-SNAPSHOT"
+  :description "generation of mandelbrot set within web browser"
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [ring/ring-core "1.1.0"]
                  [ring/ring-jetty-adapter "1.1.0"]
@@ -22,14 +22,14 @@
   :cljsbuild {
               :repl-listen-port 9000
               :builds {:release
-                       {:source-paths ["src/project_beta_client"]
-                        :compiler {:output-to "resources/public/project_beta.js"
+                       {:source-paths ["src/client"]
+                        :compiler {:output-to "resources/public/release.js"
                                    :optimizations :advanced
                                    :pretty-print false}}
                        :debug
-                       {:source-paths ["src/project_beta_client"]
-                        :compiler {:output-to "resources/public/project_beta_debug.js"
+                       {:source-paths ["src/client"]
+                        :compiler {:output-to "resources/public/debug.js"
                                    :optimizations :whitespace
                                    :pretty-print true}}
                        }}
-  :main project-beta-server.app.core)
+  :main server.app.core)

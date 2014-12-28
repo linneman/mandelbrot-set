@@ -1,17 +1,17 @@
-;;; project-alpha (server-side)
+;;; mandelbrot-set (server-side)
 ;;;
 ;;; The use and distribution terms for this software are covered by
 ;;; the GNU General Public License
 ;;;
-;;; June 2012, Otto Linnemann
+;;; December 2014, Otto Linnemann
 ;;;
 ;;; uri rewrite handler for language prefix
 
 
-(ns project-alpha-server.lib.rewrite
-  (:require [project-alpha-server.local-settings :as setup])
+(ns server.lib.rewrite
+  (:require [server.local-settings :as setup])
   (:use [clojure.string :only [split]]
-        [project-alpha-server.lib.utils]))
+        [server.lib.utils]))
 
 (defn rewrite-handler
   "Extracts language prefix from given request and remove

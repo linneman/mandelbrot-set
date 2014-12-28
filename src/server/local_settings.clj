@@ -3,9 +3,9 @@
 ;;; The use and distribution terms for this software are covered by
 ;;; the GNU General Public License
 ;;;
-;;; December 2011, Otto Linnemann
+;;; December 2014, Otto Linnemann
 
-(ns project-beta-server.local-settings)
+(ns server.local-settings)
 
 
 ;;; --- Port and domain setup ---

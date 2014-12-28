@@ -3,13 +3,13 @@
 ;;; The use and distribution terms for this software are covered by
 ;;; the GNU General Public License
 ;;;
-;;; December 2011, Otto Linnemann
+;;; December 2014, Otto Linnemann
 
 
-(ns project-beta-server.app.core
+(ns server.app.core
   (:require [ring.adapter.jetty :as jetty]
             [ring.middleware.json-params :as json-params]
-            [project-beta-server.local-settings :as setup]
+            [server.local-settings :as setup]
             [compojure.core :as compojure]
             [compojure.route :as route]
             [compojure.handler :as handler]

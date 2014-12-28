@@ -1,10 +1,10 @@
-# Project Beta - Next Project, Winter 2014/15
+# mandelbrot-set - Generation of Mandelbrot Set as Clojurescript Application
 
 ## Licence
 This implementation code stands under the terms of the
 [GNU General Public Licence](http://www.gnu.org/licenses/gpl.html).
 
-November 2014, Otto Linnemann
+December 2014, Otto Linnemann
 
 ## Resources and links
 Thanks to all the giants whose shoulders we stand on. And the giants theses giants stand on...

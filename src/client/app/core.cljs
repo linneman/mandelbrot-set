@@ -7,23 +7,20 @@
 ;;;
 ;;; ====== main-function ======
 ;;;
-;;; 2011-11-23, Otto Linnemann
 
-
-(ns project-beta-client.app.core
+(ns client.app.core
   (:require
-            [project-beta-client.lib.repl :as repl]
-            [clojure.browser.dom :as dom]
-            [goog.dom :as gdom]
-            [goog.events :as events]
-            [goog.style :as style]
-            [goog.Timer :as timer])
-  (:use [project-beta-client.lib.logging :only [loginfo]]
-        [project-beta-client.lib.utils :only [current-url-keyword
-                                               is-ios-device? show-elements-of-class]]))
+   [client.lib.repl :as repl]
+   [clojure.browser.dom :as dom]
+   [goog.dom :as gdom]
+   [goog.events :as events]
+   [goog.style :as style]
+   [goog.Timer :as timer])
+  (:use [client.lib.logging :only [loginfo]]
+        [client.lib.utils :only [current-url-keyword
+                                 is-ios-device? show-elements-of-class]]))
 
 (def eval-rect (atom [-2.0 0.5 -1.25 1.25]))
-(def eps-min 1e-10)
 
 (def render-canvas (dom/get-element "render"))
 (def render-context (. render-canvas (getContext "2d")))

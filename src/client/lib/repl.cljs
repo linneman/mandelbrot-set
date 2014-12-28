@@ -4,7 +4,7 @@
 ;;; The use and distribution terms for this software are covered by
 ;;; the GNU General Public License
 
-(ns project-beta-client.lib.repl
+(ns client.lib.repl
   (:require [clojure.browser.repl :as repl]))
 
 

@@ -1,4 +1,4 @@
-;;; project-alpha (server-side)
+;;; mandelbrot-set (server-side)
 ;;;
 ;;; The use and distribution terms for this software are covered by
 ;;; the GNU General Public License
@@ -9,9 +9,9 @@
 ;;; December 2011, Otto Linnemann
 
 
-(ns project-alpha-server.lib.email
-  (:use [project-alpha-server.lib.utils])
-  (:require [project-alpha-server.local-settings :as setup])
+(ns server.lib.email
+  (:use [server.lib.utils])
+  (:require [server.local-settings :as setup])
   (:import [org.apache.commons.mail SimpleEmail]))
 
 
@@ -54,5 +54,3 @@
     (sendmail to-address subj (str msg url))))
 
 ; (send-confirm-mail "linneman@gmx.de" "/confirm/abcdef")
-
-

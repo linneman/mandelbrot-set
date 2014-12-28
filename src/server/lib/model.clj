@@ -1,16 +1,16 @@
-;;; project-alpha (server-side)
+;;; mandelbrot-set (server-side)
 ;;;
 ;;; The use and distribution terms for this software are covered by
 ;;; the GNU General Public License
 ;;;
-;;; December 2011, Otto Linnemann
+;;; December 2014, Otto Linnemann
 
 ;;; example used from the net, many thanks to:
 ;;; http://en.wikibooks.org/wiki/Clojure_Programming/Examples/JDBC_Examples
 ;;; http://sqlkorma.com
 ;;; https://gist.github.com/1521214
 
-(ns project-alpha-server.lib.model
+(ns server.lib.model
   (:require [korma.db :as db]
             [korma.core :as sql]
             [clojure.java.jdbc :as jdbc]

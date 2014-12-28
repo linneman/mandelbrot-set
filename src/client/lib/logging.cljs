@@ -7,7 +7,7 @@
 ;;;
 ;;; 2011-11-23, Otto Linnemann
 
-(ns project-beta-client.lib.logging
+(ns client.lib.logging
   (:require [goog.debug.Console :as Console]
             [goog.debug.Logger :as Logger]
             [goog.debug.Logger.Level :as LogLevel]))
@@ -16,7 +16,7 @@
 (def debugConsole (goog.debug.Console. "core"))
 (. debugConsole (setCapturing true))
 
-(def logger (Logger/getLogger "project-beta.core"))
+(def logger (Logger/getLogger "mandelbrot-set.core"))
 (. logger (setLevel LogLevel/ALL))
 
 

@@ -1,13 +1,13 @@
-;;; project-alpha (server-side)
+;;; mandelbrot-set (server-side)
 ;;;
 ;;; The use and distribution terms for this software are covered by
 ;;; the GNU General Public License
 ;;;
-;;; December 2011, Otto Linnemann
+;;; December 2014, Otto Linnemann
 ;;;
 ;;; utility functions
 
-(ns project-alpha-server.lib.utils
+(ns server.lib.utils
   (:require [clojure.string :as string]))
 
 

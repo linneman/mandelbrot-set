@@ -1,16 +1,16 @@
-;;; project-alpha (server-side)
+;;; mandelbrot-set (server-side)
 ;;;
 ;;; The use and distribution terms for this software are covered by
 ;;; the GNU General Public License
 ;;;
-;;; December 2011, Otto Linnemann
+;;; December 2014, Otto Linnemann
 ;;;
 ;;; taken from, many thanks to:
 ;;; https://github.com/mmcgrana/ring/blob/master/ring-core/src/ring/middleware/session/cookie.clj
 ;;; password hashing function (hash-password) from Joerg Ramb
 
 
-(ns project-alpha-server.lib.crypto
+(ns server.lib.crypto
   "Encrypted cookie session storage."
   (:use ring.middleware.session.store)
   (:require [ring.util.codec :as codec])
@@ -124,4 +124,3 @@
   (let [sha1 (MessageDigest/getInstance "SHA1")
         digest (. sha1 (digest (.getBytes str)))]
     (codec/base64-encode digest)))
-

@@ -10,8 +10,8 @@
 ;;; 2011-11-23, Otto Linnemann
 
 
-(ns project-beta-client.lib.utils
-  (:require [project-beta-client.lib.json :as json]
+(ns client.lib.utils
+  (:require [client.lib.json :as json]
             [clojure.browser.event :as event]
             [clojure.browser.dom   :as dom]
             [goog.dom :as gdom]
@@ -22,7 +22,7 @@
             [goog.events :as events]
             [goog.events.EventType :as event-type]
             [goog.style :as style])
-  (:use [project-beta-client.lib.logging :only [loginfo]]))
+  (:use [client.lib.logging :only [loginfo]]))
 
 
 (defn- current-url-keyword

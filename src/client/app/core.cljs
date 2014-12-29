@@ -39,10 +39,12 @@
 (set! (. control-context -fillStyle) "rgba(255,0,0,0.5)")
 
 
+(def updateCoordinateTable)
 
 (defn start-rendering
   [canvas [real_min real_max imag_min imag_max]]
   (js/eval "document.body.style.cursor = 'wait';")
+  (updateCoordinateTable [real_min real_max imag_min imag_max])
   (timer/callOnce #(do
                      (render-image render-canvas real_min real_max imag_min imag_max 10 10 100)) 10)
   (timer/callOnce #(do
@@ -113,6 +115,21 @@
      (+ y-min (* y-max-ratio (- y-max y-min)))]))
 
 
+;; methods for updating the coordinate table
+
+(defn- setTableCellExp [cell-id value]
+  (let [e (dom/get-element cell-id)]
+    (set! (. e -innerHTML) (. value (toExponential 8)))))
+
+(defn- updateCoordinateTable [rect]
+  (let [[x-min x-max y-min y-max] rect]
+    (setTableCellExp"real_min" x-min)
+    (setTableCellExp"real_max" x-max)
+    (setTableCellExp"imag_min" y-min)
+    (setTableCellExp"imag_max" y-max)))
+
+;(updateCoordinateTable [1 2 3 4])
+
 (defn- canvasMouseDownEvent
   [e]
   (let [t (. e -type)
@@ -146,7 +163,7 @@
         (loginfo (str "mouseUpEvent: " selection-rect "   ->: " @eval-rect))
         (. reset-button (setEnabled true))
         (. undo-button (setEnabled true))
-        (start-rendering render-canvas @eval-rect)))))
+        (start-rendering render-canvas complex-selection-rect)))))
 
 
 (defn- canvasMouseMoveEvent
@@ -157,9 +174,12 @@
           [width height] [(. target -width) (. target -height)]
           [x y] (get-evt-coordinates e)
           [down-x down-y] @mouse-down-pos
-          [x y] (adjust-selection-to-rect-ratio @mouse-down-pos [x y] [width height])]
+          [x y] (adjust-selection-to-rect-ratio @mouse-down-pos [x y] [width height])
+          selection-rect (getMouseSelectionRect @mouse-down-pos [x y])
+          complex-selection-rect (get-selected-complex-rect @eval-rect selection-rect [width height])]
       (. control-context (clearRect 0 0 width height))
       (. control-context (fillRect down-x down-y (- x down-x) (- y down-y)))
+      (updateCoordinateTable complex-selection-rect)
       (loginfo (str "mouseMoveEvent -> x: " x "  ,y: " y)))))
 
 
@@ -197,16 +217,18 @@
                    (reset! eval-rect initial-eval-rect)
                    (run "reset"))))
 
+
 (def undo-button
   (render-button "undo"
                  (fn []
                    (loginfo "undo button clicked")
-
-                   (js/eval "document.body.style.cursor = 'wait';")
-                   (if (not-empty @prev-evals-stack)
-                     (let [r (pull-eval-rec)]
+                   (let [r (pull-eval-rec)]
+                     (when r
+                       (js/eval "document.body.style.cursor = 'wait';")
                        (when (empty? @prev-evals-stack) (. reset-button (setEnabled false)) (. undo-button (setEnabled false)))
                        (js/eval "document.body.style.cursor = 'wait';")
+                       (loginfo (str "undo stack: " @prev-evals-stack))
+                       (reset! eval-rect r)
                        (start-rendering render-canvas r))))))
 
 ;; start the rendering process deferred in order to update the UI properly
@@ -215,6 +237,7 @@
   (. reset-button (setEnabled false))
   (. undo-button (setEnabled false))
   (clear-eval-rec-stack)
+  (reset! eval-rect initial-eval-rect)
   (start-rendering render-canvas @eval-rect))
 
 (events/listen

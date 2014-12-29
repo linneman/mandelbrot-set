@@ -14,6 +14,9 @@
    [clojure.browser.dom :as dom]
    [goog.dom :as gdom]
    [goog.events :as events]
+   [goog.ui.Button :as Button]
+   [goog.ui.ButtonRenderer :as ButtonRenderer]
+   [goog.ui.FlatButtonRenderer :as FlatButtonRenderer]
    [goog.style :as style]
    [goog.Timer :as timer])
   (:use [client.app.mandelbrot :only [render-image]]
@@ -21,7 +24,13 @@
         [client.lib.utils :only [current-url-keyword
                                  is-ios-device? show-elements-of-class]]))
 
-(def eval-rect (atom [-2.0 0.5 -1.25 1.25]))
+(def initial-eval-rect [-2.0 0.5 -1.25 1.25])
+(def eval-rect (atom initial-eval-rect))
+
+(def prev-evals-stack (atom (list)))
+(defn push-eval-rec [r] (swap! prev-evals-stack conj r))
+(defn pull-eval-rec [] (let [t (first @prev-evals-stack)] (if t (swap! prev-evals-stack pop)) t))
+(defn clear-eval-rec-stack [] (reset! prev-evals-stack (list)))
 
 (def render-canvas (dom/get-element "render"))
 (def render-context (. render-canvas (getContext "2d")))
@@ -111,6 +120,9 @@
     (reset! mouse-down-pos [x y])
     (loginfo (str "mouseDownEvent -> x: " x "  ,y: " y))))
 
+(def reset-button)
+(def undo-button)
+
 (defn- canvasMouseUpEvent
   [e]
   (let [t (. e -type)
@@ -127,10 +139,13 @@
         (reset! mouse-down-pos nil)
         (loginfo "mouseUpEvent but nothing selected"))
       (do
+        (push-eval-rec @eval-rect)
         (reset! eval-rect complex-selection-rect)
         (reset! mouse-up-pos [x y])
         (reset! mouse-down-pos nil)
         (loginfo (str "mouseUpEvent: " selection-rect "   ->: " @eval-rect))
+        (. reset-button (setEnabled true))
+        (. undo-button (setEnabled true))
         (start-rendering render-canvas @eval-rect)))))
 
 
@@ -150,23 +165,56 @@
 
 (events/listen
  control-canvas
- (clj->js goog.events.EventType.MOUSEDOWN)
+ goog.events.EventType.MOUSEDOWN
  canvasMouseDownEvent)
 
 (events/listen
  control-canvas
- (clj->js goog.events.EventType.MOUSEUP)
+ goog.events.EventType.MOUSEUP
  canvasMouseUpEvent)
 
 (events/listen
  control-canvas
- (clj->js goog.events.EventType.MOUSEMOVE)
+ goog.events.EventType.MOUSEMOVE
  canvasMouseMoveEvent)
 
+
+(defn- render-button
+  [id call]
+  (let [button (goog.ui.decorate (dom/get-element id))]
+    (events/listen
+     button "action"
+     call
+     )
+    (. button (setEnabled true))
+    button))
+
+(def run)
+(def reset-button
+  (render-button "reset"
+                 (fn []
+                   (loginfo "reset button clicked")
+                   (reset! eval-rect initial-eval-rect)
+                   (run "reset"))))
+
+(def undo-button
+  (render-button "undo"
+                 (fn []
+                   (loginfo "undo button clicked")
+
+                   (js/eval "document.body.style.cursor = 'wait';")
+                   (if (not-empty @prev-evals-stack)
+                     (let [r (pull-eval-rec)]
+                       (when (empty? @prev-evals-stack) (. reset-button (setEnabled false)) (. undo-button (setEnabled false)))
+                       (js/eval "document.body.style.cursor = 'wait';")
+                       (start-rendering render-canvas r))))))
 
 ;; start the rendering process deferred in order to update the UI properly
 (defn- run [e]
   (js/eval "document.body.style.cursor = 'wait';")
+  (. reset-button (setEnabled false))
+  (. undo-button (setEnabled false))
+  (clear-eval-rec-stack)
   (start-rendering render-canvas @eval-rect))
 
 (events/listen

@@ -328,7 +328,7 @@ input.button.green:active, a.button.green:active {
 }
 
 #viewport {
-    position:relative;
+    float:left;
     width:500px;
     height:500px;
 }
@@ -344,4 +344,38 @@ input.button.green:active, a.button.green:active {
 
 #viewport #control {
   z-index: 2;
+}
+
+#controlport {
+    float:right;
+    width:400px;
+    height:500px;
+}
+
+#controlport #coordinates {
+    margin-top:70px;
+    width:50%;
+}
+
+#controlport #coordinates {
+    width:100%;
+}
+
+#controlport #coordinates .title {
+    font-weight:bold;
+}
+
+#controlport #coordinates .data {
+    width:40%;
+    color:#444444;
+}
+
+#controlport #buttons {
+    margin-top:70px;
+    width:40%;
+}
+
+#repl-pane {
+    margin-top:550px;
+    color:red;
 }

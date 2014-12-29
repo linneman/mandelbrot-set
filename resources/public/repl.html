@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" type="text/css" href="css/project.css" />
     <link rel="stylesheet" type="text/css" href="css/repl.css" />
+    <link rel="stylesheet" type="text/css" href="css/button.css">
+    <link rel="stylesheet" type="text/css" href="css/flatbutton.css">
     <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="mainpanel.css" media="all">
 	<![endif]-->
@@ -29,11 +31,44 @@
       <div id="header">
       </div>
 
-      <div id="header-space"></div>
       <div id="content_pane">
+
         <div id="viewport">
           <canvas id="render" width="500" height="500"></canvas>
           <canvas id="control" width="500" height="500"></canvas>
+        </div>
+
+        <div id="controlport">
+          <p><b>Select an area to enlarge within the left panel.</b></p>
+          <table>
+            <tr>
+              <td>Iteration formula:</td><td>z<sub>n+1</sub>=z<sub>n</sub>&sup2;+c&nbsp;&nbsp;z<sub>0</sub>=0</td>
+            </tr>
+            <tr>
+              <td></td> <td>&#8704;z,n&#x239f;&nbsp;|z|&le;2&#8897;n&lt;100</td>
+            </tr>
+          </table>
+          <table id="coordinates">
+            <tr>
+              <td></td><td id="f" class="title">min</td><td class="title">max</td>
+            </tr>
+            <tr>
+              <td class="title">&#x211c;{c}</td><td class="data"
+              id="real_min">-2.0</td><td class="data" id="real_max">0.5</td>
+            </tr>
+            <tr>
+              <td class="title">&#x2111;{c}</td><td class="data"
+              id="imag_min">-1.25</td><td class="data" id="imag_max">1.25</td>
+            </tr>
+          </table>
+
+          <table id="buttons">
+            <tr>
+              <td><div id="undo" class="goog-flat-button goog-flat-button-disabled"> Undo </div></td>
+              <td><div id="reset" class="goog-flat-button goog-flat-button-disabled"> Reset </div></td>
+            </tr>
+          <table>
+
         </div>
       </div>
 

@@ -37,6 +37,25 @@
     (keyword page)))
 
 
+(defn parse-url-args
+  "returns a hash-map providing the arguments of an http get request"
+  []
+  (let [u (js/eval (str "window.location.href"))
+        arg-url (last (first (re-seq #"[?](.*)" u)))]
+    (when arg-url
+      (let [args (rest (first (re-seq #"(.*)&(.*)&(.*)&(.*)" arg-url)))
+        pairs (map #(rest (first (re-seq #"(.*)=(.*)" %))) args)
+        hm (reduce #(assoc %1 (first %2) (second %2)) {} pairs)]
+        hm))))
+
+
+(defn rewrite-url
+  "rewrites the url to given string"
+  [url]
+  (loginfo (str "url rewritten to: " url))
+  (js/eval (str "window.history.pushState('', 'Mandelbrot set', '" url "');")))
+
+
 (defn get-element
   "similar to dom/get-element but the search can be
    restricted to a given node (2nd argument) If no

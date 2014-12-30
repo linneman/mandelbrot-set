@@ -21,7 +21,7 @@
    [goog.Timer :as timer])
   (:use [client.app.mandelbrot :only [render-image]]
         [client.lib.logging :only [loginfo]]
-        [client.lib.utils :only [current-url-keyword
+        [client.lib.utils :only [parse-url-args rewrite-url current-url-keyword
                                  is-ios-device? show-elements-of-class]]))
 
 (def initial-eval-rect [-2.0 0.5 -1.25 1.25])
@@ -40,11 +40,13 @@
 
 
 (def updateCoordinateTable)
+(def set-url-complex-rext)
 
 (defn start-rendering
   [canvas [real_min real_max imag_min imag_max]]
   (js/eval "document.body.style.cursor = 'wait';")
   (updateCoordinateTable [real_min real_max imag_min imag_max])
+  (set-url-complex-rext [real_min real_max imag_min imag_max])
   (timer/callOnce #(do
                      (render-image render-canvas real_min real_max imag_min imag_max 10 10 100)) 10)
   (timer/callOnce #(do
@@ -231,14 +233,6 @@
                        (reset! eval-rect r)
                        (start-rendering render-canvas r))))))
 
-(defn- parse-url-args []
-  (let [u (js/eval (str "window.location.href"))
-        arg-url (last (first (re-seq #"[?](.*)" u)))]
-    (when arg-url
-      (let [args (rest (first (re-seq #"(.*)&(.*)&(.*)&(.*)" arg-url)))
-        pairs (map #(rest (first (re-seq #"(.*)=(.*)" %))) args)
-        hm (reduce #(assoc %1 (first %2) (second %2)) {} pairs)]
-        hm))))
 
 (defn- get-url-complex-rect []
   (let [hm (parse-url-args)]
@@ -246,20 +240,32 @@
       [(js/parseFloat (hm "x_min")) (js/parseFloat (hm "x_max")) (js/parseFloat (hm "y_min")) (js/parseFloat (hm "y_max"))])))
 
 
-;; start the rendering process deferred in order to update the UI properly
-(defn- run [e]
+(defn- set-url-complex-rext [r]
+  (let [[x_min x_max y_min y_max] r]
+    (rewrite-url (str "?x_min=" x_min "&x_max=" x_max "&y_min=" y_min "&y_max=" y_max))))
+
+
+(defn- run
+  "start the rendering process deferred in order to update the UI properly"
+  [e]
   (js/eval "document.body.style.cursor = 'wait';")
   (. reset-button (setEnabled false))
   (. undo-button (setEnabled false))
   (clear-eval-rec-stack)
+  (start-rendering render-canvas @eval-rect))
+
+
+(defn- init
+  "evaluated only once after page load"
+  [e]
   (let [url-rect (get-url-complex-rect)]
     (if url-rect
       (reset! eval-rect url-rect)
-      (reset! eval-rect initial-eval-rect)))
-  (start-rendering render-canvas @eval-rect))
+      (reset! eval-rect initial-eval-rect))
+    (run e)))
+
 
 (events/listen
  (js/eval "window")
  goog.events.EventType.LOAD
- run
-)
+ init)

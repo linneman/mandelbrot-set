@@ -231,13 +231,31 @@
                        (reset! eval-rect r)
                        (start-rendering render-canvas r))))))
 
+(defn- parse-url-args []
+  (let [u (js/eval (str "window.location.href"))
+        arg-url (last (first (re-seq #"[?](.*)" u)))]
+    (when arg-url
+      (let [args (rest (first (re-seq #"(.*)&(.*)&(.*)&(.*)" arg-url)))
+        pairs (map #(rest (first (re-seq #"(.*)=(.*)" %))) args)
+        hm (reduce #(assoc %1 (first %2) (second %2)) {} pairs)]
+        hm))))
+
+(defn- get-url-complex-rect []
+  (let [hm (parse-url-args)]
+    (when hm
+      [(js/parseFloat (hm "x_min")) (js/parseFloat (hm "x_max")) (js/parseFloat (hm "y_min")) (js/parseFloat (hm "y_max"))])))
+
+
 ;; start the rendering process deferred in order to update the UI properly
 (defn- run [e]
   (js/eval "document.body.style.cursor = 'wait';")
   (. reset-button (setEnabled false))
   (. undo-button (setEnabled false))
   (clear-eval-rec-stack)
-  (reset! eval-rect initial-eval-rect)
+  (let [url-rect (get-url-complex-rect)]
+    (if url-rect
+      (reset! eval-rect url-rect)
+      (reset! eval-rect initial-eval-rect)))
   (start-rendering render-canvas @eval-rect))
 
 (events/listen

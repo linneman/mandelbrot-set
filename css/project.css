@@ -374,8 +374,3 @@ input.button.green:active, a.button.green:active {
     margin-top:70px;
     width:40%;
 }
-
-#repl-pane {
-    margin-top:550px;
-    color:red;
-}

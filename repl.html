@@ -29,6 +29,10 @@
   <body>
     <div id="outer-frame">
       <div id="header">
+        <div id="title">
+          <h1>Online Renedring of the Mandelbrot set</h1>
+          <p>by OL</p>
+        </div>
       </div>
 
       <div id="content_pane">
@@ -70,17 +74,19 @@
           <table>
 
         </div>
+
+        <div id="repl-pane">
+          <div id="repl">
+            <h3>REPL</h3>
+            <p>Enter the following command in your development shell and reload the page:</p>
+            <code>lein trampoline cljsbuild repl-listen</code>
+          </div>
+        </div>
+
       </div>
 
     </div>
 
-    <div id="repl-pane">
-      <div id="repl">
-        <h3>REPL</h3>
-        <p>Enter the following command in your development shell and reload the page:</p>
-        <code>lein trampoline cljsbuild repl-listen</code>
-      </div>
-    </div>
 
     <div id="global-scripts">
       <script type="text/javascript">

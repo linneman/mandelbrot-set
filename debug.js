@@ -43398,9 +43398,9 @@ client.app.core.canvasMouseMoveEvent = function canvasMouseMoveEvent(e) {
     return null;
   }
 };
-goog.events.listen(client.app.core.control_canvas, goog.events.EventType.MOUSEDOWN, client.app.core.canvasMouseDownEvent);
-goog.events.listen(client.app.core.control_canvas, goog.events.EventType.MOUSEUP, client.app.core.canvasMouseUpEvent);
-goog.events.listen(client.app.core.control_canvas, goog.events.EventType.MOUSEMOVE, client.app.core.canvasMouseMoveEvent);
+goog.events.listen(client.app.core.control_canvas, cljs.core.clj__GT_js.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [goog.events.EventType.MOUSEDOWN, goog.events.EventType.TOUCHSTART], null)), client.app.core.canvasMouseDownEvent);
+goog.events.listen(client.app.core.control_canvas, cljs.core.clj__GT_js.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [goog.events.EventType.MOUSEUP, goog.events.EventType.TOUCHEND], null)), client.app.core.canvasMouseUpEvent);
+goog.events.listen(client.app.core.control_canvas, cljs.core.clj__GT_js.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [goog.events.EventType.MOUSEMOVE, goog.events.EventType.TOUCHMOVE], null)), client.app.core.canvasMouseMoveEvent);
 client.app.core.render_button = function render_button(id, call) {
   var button = goog.ui.decorate(clojure.browser.dom.get_element.call(null, id));
   goog.events.listen(button, "action", call);

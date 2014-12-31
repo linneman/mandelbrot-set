@@ -6,8 +6,9 @@
 */
 
 #repl-pane {
-  /* display:none; */
-  /* opacity:0; */
+    float:left;
+    margin-top:20px;
+    color:red;
 }
 
 #repl {

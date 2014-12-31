@@ -187,17 +187,17 @@
 
 (events/listen
  control-canvas
- goog.events.EventType.MOUSEDOWN
+ (clj->js [goog.events.EventType.MOUSEDOWN goog.events.EventType.TOUCHSTART])
  canvasMouseDownEvent)
 
 (events/listen
  control-canvas
- goog.events.EventType.MOUSEUP
+ (clj->js [goog.events.EventType.MOUSEUP goog.events.EventType.TOUCHEND])
  canvasMouseUpEvent)
 
 (events/listen
  control-canvas
- goog.events.EventType.MOUSEMOVE
+ (clj->js [goog.events.EventType.MOUSEMOVE goog.events.EventType.TOUCHMOVE])
  canvasMouseMoveEvent)
 
 

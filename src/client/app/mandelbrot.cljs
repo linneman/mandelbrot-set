@@ -24,18 +24,16 @@
 
 (defn square_z_plus_c [z_real z_imag c_real c_imag ]
   [(+ (- (square z_real) (square z_imag)) c_real)
-   (+ (* 2 z_real z_imag) c_imag)
-   c_real
-   c_imag])
+   (+ (* 2 z_real z_imag) c_imag)])
 
 (defn c2iterations [c_real c_imag max_iterations]
-  (let [iter_z (fn [z_real z_imag c_real c_imag iteration]
-                 (let [[z_real z_imag c_real c_imag] (square_z_plus_c z_real z_imag c_real c_imag)
+  (let [iter_z (fn [z_real z_imag iteration]
+                 (let [[z_real z_imag] (square_z_plus_c z_real z_imag c_real c_imag)
                        square_z (+ (square z_real) (square z_imag))]
                    (if (or (> square_z 4) (>= iteration max_iterations))
                      iteration
-                     (recur z_real z_imag c_real c_imag (inc iteration)))))]
-    (iter_z 0 0 c_real c_imag 0)))
+                     (recur z_real z_imag (inc iteration)))))]
+    (iter_z 0 0 0)))
 
 ; (c2iterations -1.25 0.1 100)
 

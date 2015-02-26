@@ -28,7 +28,8 @@
         [clojure.pprint :only [pprint]]
         [clojure.data.json :only [json-str write-json read-json]]
         [server.lib.utils]
-        [macros.macros]))
+        [macros.macros])
+  (:gen-class))
 
 
 

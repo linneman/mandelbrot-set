@@ -13,9 +13,7 @@
             [compojure.core :as compojure]
             [compojure.route :as route]
             [compojure.handler :as handler]
-            [net.cgrand.enlive-html :as html]
-            [clojure.tools.nrepl.server :as nrepl-server]
-            [cider.nrepl :refer (cider-nrepl-handler)])
+            [net.cgrand.enlive-html :as html])
   (:use [clojure.string :only [split]]
         [compojure.core :only [GET POST PUT DELETE]]
         [ring.util.response :only [response content-type charset redirect]]
@@ -63,10 +61,7 @@
   )
 
 (defn -main [& args]
-  ;(swank.swank/start-server :port 4005)
-  (nrepl-server/start-server :port 7888 :handler cider-nrepl-handler)
-  (start-server)
-  )
+  (start-server))
 
 ; (start-server)
 ; (stop-server)

@@ -14,6 +14,7 @@
    [clojure.browser.dom :as dom]
    [goog.dom :as gdom]
    [goog.events :as events]
+   [goog.ui.decorate :as decorate]
    [goog.ui.Button :as Button]
    [goog.ui.ButtonRenderer :as ButtonRenderer]
    [goog.ui.FlatButtonRenderer :as FlatButtonRenderer]
@@ -39,8 +40,8 @@
 (set! (. control-context -fillStyle) "rgba(255,0,0,0.5)")
 
 
-(def updateCoordinateTable)
-(def set-url-complex-rext)
+(declare updateCoordinateTable)
+(declare set-url-complex-rext)
 
 (defn start-rendering
   [canvas [real_min real_max imag_min imag_max]]
@@ -139,8 +140,8 @@
     (reset! mouse-down-pos [x y])
     (loginfo (str "mouseDownEvent -> x: " x "  ,y: " y))))
 
-(def reset-button)
-(def undo-button)
+(declare reset-button)
+(declare undo-button)
 
 (defn- canvasMouseUpEvent
   [e]
@@ -202,16 +203,15 @@
 
 
 (defn- render-button
-  [id call]
+  [id cb]
   (let [button (goog.ui.decorate (dom/get-element id))]
     (events/listen
      button "action"
-     call
-     )
+     cb)
     (. button (setEnabled true))
     button))
 
-(def run)
+(declare run)
 (def reset-button
   (render-button "reset"
                  (fn []

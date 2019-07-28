@@ -59,7 +59,7 @@ The so called Read-Eval-Print-Loop, in short REPL, is a very powerful way of cha
 * open a shell with meta-x followed by "shell", from there enter the commands after the colon:
 
         sh$: cd mandelbrot-set (project's root directory)
-        sh$: lein trampoline cljsbuild repl-listen
+        sh$: lein trampoline run -m clojure.main browser_repl.clj
 * load the webpage http://localhost:3000/repl.html within your web browser, your client repl should now be operational which you should check e.g. like this:
 
         ClojureScript:cljs.user> (+ 1 1)

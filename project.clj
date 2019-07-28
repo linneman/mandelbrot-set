@@ -2,8 +2,7 @@
   :description "generation of mandelbrot set within web browser"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.10.520"]
-                 [ring/ring-core "1.1.0"]
-                 [ring/ring-jetty-adapter "1.1.0"]
+                 [ring "1.7.1"]
                  [ring-json-params "0.1.3"]
                  [compojure "0.6.5" :exclusions
                   [org.clojure/clojure org.clojure/clojure-contrib]]
@@ -15,9 +14,9 @@
                  [org.apache.commons/commons-email "1.2"]
                  [org.clojure/data.json "0.2.5"]]
   :plugins [[lein-cljsbuild "1.1.7"]
-            [lein-ring "0.7.0"]]
+            [lein-ring "0.12.5"]]
   :source-paths ["src"]
-  ;; :hooks [leiningen.cljsbuild]
+  :ring {:handler server.app.core/app}
   :cljsbuild {
               :repl-listen-port 9000
               :builds {:release
@@ -31,4 +30,6 @@
                                    :optimizations :whitespace
                                    :pretty-print true}}
                        }}
-  :main server.app.core)
+  :aot [server.app.core]
+  :main server.app.core
+  :uberjar {:aot :all})
